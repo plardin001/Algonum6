@@ -30,5 +30,15 @@ def meth_n_step(y0, t0, N, h, f, meth):
 	return (Y)
 
 def meth_epsilon(y0,t0,tf,eps,f,meth):
-        N = (tf-t0)*eps
-        return (meth_n_step(y0,t0,N,eps,f,meth))
+        N = 10
+        h = (tf - t0) / N
+        YN = meth_n_step(y0, t0, N, h, f, meth)
+        YNN = meth_n_step(y0, t0, N//2, 2*h, f, meth)
+        while ( np.linalg.norm(YN[N] - YNN[N]) > eps) and (N < 10**6):
+                YNN=YN
+                N = 2*N
+                h = (tf - t0) / N
+                YN = meth_n_step(y0, t0, N, h, f, meth)
+        return YN
+
+        
