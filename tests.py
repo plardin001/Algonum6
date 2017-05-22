@@ -9,8 +9,15 @@ from afficher import *
 def f1(y,t):
     return(y/(1+t**2))
 
+#solution of y'(t)=f1(y,t) and y(0)=1
 def y1(t):
     return m.exp(m.atan(t))
+
+def f2(Y,t):
+    return([[-Y[1]],[Y[0]]])
+
+#solution of y'(t)=f2[Y,t] and y(0)
+    
 
 def test_meth_epsilon():
     y0=[1]
@@ -46,12 +53,9 @@ def test_meth_epsilon():
     return
 
 def test_print_field():
-    y0 = [1]
-    t0 = 0
-    tf = 8
-    eps = 0.0001
-    Champ1 = meth_epsilon(y0, t0, tf, eps, f1, step_euler)
-    print_field(Champ1,"Champ1")
+    print_field(f1,[1],0,"Champ",step_euler)
 
 test_print_field()
 #test_meth_epsilon()
+#show_vector_field(f1,0,1,10,10,0.01,0.01)
+
