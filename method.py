@@ -39,4 +39,9 @@ def meth_epsilon(y0,t0,tf,eps,f,meth):
 		N = 2*N
 		h = (tf - t0) / N
 		YN = meth_n_step(y0, t0, N, h, f, meth)
-	return YN
+	x=t0
+	XN = np.zeros((N, 1))
+	for i in range(N):
+                XN[i]=x
+                x += h
+	return (XN,YN)
