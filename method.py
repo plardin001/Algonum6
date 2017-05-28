@@ -34,7 +34,7 @@ def meth_epsilon(y0,t0,tf,eps,f,meth):
 	h = (tf - t0) / N
 	YN = meth_n_step(y0, t0, N, h, f, meth)
 	YNN = meth_n_step(y0, t0, N//2, 2*h, f, meth)
-	while((np.linalg.norm(YN[-1] - YNN[-1]) > eps) and (N < 10**6)):
+	while((np.linalg.norm(YN[::2] - YNN) > eps) and (N < 10**6)):
 		YNN=YN
 		N = 2*N
 		h = (tf - t0) / N
