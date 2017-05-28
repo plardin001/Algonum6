@@ -31,24 +31,3 @@ def print_field(f, y0, t0, field_name,method, h=0.01, xmin=0, xmax=10, ymin=0, y
                DF[::step])
     plt.show()
     return
-
-def tangents_field(y0, t0, h, f, meth, N):
-    #tan0 = lambda x : f(y0, t0).dot((x - t0)) + y0
-    t0_ = t0
-    X = [0.]*N
-    Y = [0.]*N
-    DY = [0.]*N
-    X[0] = t0
-    Y[0] = y0
-    DY[0] = f(y0, t0)
-    for i in range(1,N):
-        y0 = meth(y0, t0, h, f)
-        t0 += h
-        X[i] = t0
-        Y[i] = y0
-        DY[i] = f(y0, t0)
-    print(t0_,t0)
-    U, V = np.meshgrid(np.arange(0.,0.5,0.1), np.arange(0.,0.5,0.1))
-    plt.quiver(U, V, Y, DY)
-    plt.show()
-    return
