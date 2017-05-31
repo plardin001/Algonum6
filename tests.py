@@ -14,10 +14,11 @@ def y1(t):
     return m.exp(m.atan(t))
 
 def f2(Y,t):
-    return([[-Y[1]],[Y[0]]])
+    return(np.array([-Y[1],Y[0]]))
 
 #solution of y'(t)=f2[Y,t] and y(0)
-    
+def y2(t):
+    return np.array([np.cos(t),np.sin(t)])
 
 def test_meth_n_step():
     y0=[1]
@@ -69,11 +70,58 @@ def test_meth_epsilon():
     plt.show()
     return
 
+def test_meth_epsilon2():
+    y0 = np.array([1,0])
+    t0 = 0
+    tf = 10
+    eps = 0.1
+    
+    (XE,EULER) = meth_epsilon(y0, t0, tf, eps, f2, step_euler)
+    (XM,MID) = meth_epsilon(y0, t0, tf, eps, f2, step_mid_point)
+    (XH,HEUN) = meth_epsilon(y0, t0, tf, eps, f2, step_heun)
+    (XR,RK4) = meth_epsilon(y0, t0, tf, eps, f2, step_rk4)
+
+    EULER1,EULER2 = [],[]
+    MID1,MID2 = [],[]
+    HEUN1,HEUN2 = [],[]
+    RK41,RK42 = [],[]
+    
+    for i in range(len(XE)):
+        EULER1.append(EULER[i][0])
+        EULER2.append(EULER[i][1])
+    for i in range(len(XM)):
+        MID1.append(MID[i][0])
+        MID2.append(MID[i][1])
+    for i in range(len(XH)):
+        HEUN1.append(HEUN[i][0])
+        HEUN2.append(HEUN[i][1])
+    for i in range(len(XR)):
+        RK41.append(RK4[i][0])
+        RK42.append(RK4[i][1])
+
+        
+    plt.plot(XE,EULER1, label='y1')
+    plt.plot(XM,MID1)
+    plt.plot(XH,HEUN1)
+    plt.plot(XR,RK41)
+    
+    plt.plot(XE,EULER2,label='y2')
+    plt.plot(XM,MID2)
+    plt.plot(XH,HEUN2)
+    plt.plot(XR,RK42)
+
+    plt.title("test_meth_epsilon sur f2 avec epsilon = "+str(eps))
+    plt.legend()
+    plt.show()
+    return
+
 def test_print_field():
-    print_field(f1,[1],0,"Tangentes à f1",step_euler)
+    print_field(f2,np.array([0,1]),0,"Tangentes à f2",step_euler)
 
 
-test_meth_n_step() 
-test_meth_epsilon()
-test_print_field()
+#test_meth_n_step() 
+#test_meth_epsilon()
+test_meth_epsilon2()
+
+#test_print_field()
 
