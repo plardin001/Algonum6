@@ -13,15 +13,16 @@ def grad(U):
         for l in range (1, M + 1):
             grad[k - 1][l - 1] = [0., 0.]
             if (k == N):
-                vec[0] = 0
+                vec[0] = 0.
             else:
-                vec[0] = U[k + 1 - 1, l - 1] - U[k - 1, l - 1]
+                vec[0] = float(U[k + 1 - 1, l - 1]) - float(U[k - 1, l - 1])
             if (l == M):
-                vec[1] = 0
+                vec[1] = 0.
             else:
-                vec[1] = U[k - 1, l + 1 - 1] - U[k - 1, l - 1]
-            grad[k - 1, l - 1][0] = vec[0]
-            grad[k - 1, l - 1][1] = vec[1]
+                vec[1] = float(U[k - 1, l + 1 - 1]) - float(U[k - 1, l - 1])
+            grad[k - 1, l - 1][0] = float(vec[0])
+            grad[k - 1, l - 1][1] = float(vec[1])
+            print('grad = ', grad)
     return (grad)
 
 def div_operator(P):
@@ -82,8 +83,8 @@ def plot_f(name_image, sigma):
     im = Image.open(name_image)
     pic = np.array(im, dtype='int64')
     f_matrix = create_f_matrix(pic, sigma)
-    #print(f_matrix)
-    print(f_matrix[0][0])
+    print(f_matrix)
+    #print(f_matrix[300][300])
     #print(f_matrix[1])
     #print(f_matrix[2])
     #print(f_matrix)
@@ -94,9 +95,9 @@ def plot_f(name_image, sigma):
 
 def filter_perona(name_image, N, step, sigma):
     im = Image.open(name_image)
+    print(im)
     pic = np.array(im, dtype='int64')
     f_matrix = create_f_matrix(pic, sigma)
-    print(f_matrix[0])
     grad_pic = grad(pic)
     n, m = grad_pic.shape
     matrix_in_div = np.copy(grad_pic)
@@ -118,7 +119,7 @@ def filter_perona(name_image, N, step, sigma):
 #im = Image.open("picture.png")
 #pic = np.array(im, dtype='int64')
 ##print(create_f_matrix(pic, 1.4))
-#plot_f("picture.png",1.2)
+plot_f("picture.png",1.2)
 #print(kernel_gaussian(1.4, 5))
-print(filter_perona("picture.png", 100, 0.2, 1.2))
+#print(filter_perona("picture.png", 100, 0.2, 1.2))
 
