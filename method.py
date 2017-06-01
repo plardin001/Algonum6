@@ -30,6 +30,17 @@ def meth_n_step(y0, t0, N, h, f, meth):
                 i += 1
         return (Y)
 
+def meth_n_stepx(y0, t0, N, h, f, meth):
+	Y = np.empty(N + 1, dtype=object)
+	Y[0] = y0
+	i = 1
+	t = t0
+	while (i <= N):
+		Y[i] = meth(Y[i - 1], t, h, f)
+		t = t + h
+		i += 1
+	return (Y)
+
 def meth_epsilon(y0,t0,tf,eps,f,meth):
 	N = 10
 	h = (tf - t0) / N
