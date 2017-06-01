@@ -89,10 +89,13 @@ def plot_f(name_image, sigma):
     pic = np.array(im, dtype='int64')
     f_matrix = create_f_matrix(pic, sigma)
     print(f_matrix)
+    solution_im = Image.fromarray(f_matrix)
+    solution_im.show()
     #print(f_matrix[300][300])
     #print(f_matrix[1])
     #print(f_matrix[2])
     #print(f_matrix)
+"""
     X=[]
     Y=[]
     for i in range(len(f_matrix)):
@@ -101,6 +104,7 @@ def plot_f(name_image, sigma):
             Y.append(f_matrix[i][j])
     plt.plot(X,Y)
     plt.show()
+"""
 
 
 def filter_perona(name_image, N, step, sigma):

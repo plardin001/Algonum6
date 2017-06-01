@@ -1,4 +1,5 @@
 from method import *
+from lotka_volterra import *
 import math as m
 import matplotlib.pyplot as plt
 from afficher import *
@@ -124,4 +125,10 @@ test_meth_epsilon()
 test_meth_epsilon2()
 
 test_print_field()
+
+############ TEST LOTKA VOLTERRA ##################
+
+affiche_malthus(np.array([100]),0,150,0.1,step_rk4,0.40)
+affiche_verhulst(np.array([100]),0,200,0.1,step_rk4,0.40,400)
+affiche_Lotka_Volterra(np.array([100,30]),0,300,0.1,step_rk4,10,0.4,0.1,8)
 

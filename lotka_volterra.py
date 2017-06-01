@@ -51,8 +51,3 @@ def affiche_Lotka_Volterra(y0,t0,nb_points,h,meth,a,b,c,d):
     plt.xlabel("Proies")
     plt.show()
 
-
-
-affiche_malthus(np.array([100]),0,150,0.1,step_rk4,0.40)
-affiche_verhulst(np.array([100]),0,200,0.1,step_rk4,0.40,400)
-affiche_Lotka_Volterra(np.array([100,30]),0,300,0.1,step_rk4,10,0.4,0.1,8)
