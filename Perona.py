@@ -82,19 +82,21 @@ def plot_f(name_image, sigma):
     im = Image.open(name_image)
     pic = np.array(im, dtype='int64')
     f_matrix = create_f_matrix(pic, sigma)
-    #print(len(f_matrix))
-    #print(len(f_matrix[0]))
-    #print(len(f_matrix[1]))
-    #print(len(f_matrix[2]))
     #print(f_matrix)
-    X=[]
-    Y=[]
-    Z=[]
+    print(f_matrix[0][0])
+    #print(f_matrix[1])
+    #print(f_matrix[2])
+    #print(f_matrix)
+    #X=[]
+    #Y=[]
+    #Z=[]
+    #for i in range
 
 def filter_perona(name_image, N, step, sigma):
     im = Image.open(name_image)
     pic = np.array(im, dtype='int64')
     f_matrix = create_f_matrix(pic, sigma)
+    print(f_matrix[0])
     grad_pic = grad(pic)
     n, m = grad_pic.shape
     matrix_in_div = np.copy(grad_pic)
@@ -116,7 +118,7 @@ def filter_perona(name_image, N, step, sigma):
 #im = Image.open("picture.png")
 #pic = np.array(im, dtype='int64')
 ##print(create_f_matrix(pic, 1.4))
-plot_f("picture.png",1.2)
+#plot_f("picture.png",1.2)
 #print(kernel_gaussian(1.4, 5))
-#print(filter_perona("picture.png", 100, 0.2, 1.2))
+print(filter_perona("picture.png", 100, 0.2, 1.2))
 
