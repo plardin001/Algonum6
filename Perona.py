@@ -1,6 +1,7 @@
 import numpy as np
 import math as m
 import method as met
+import matplotlib.pyplot as plt
 from PIL import Image
 from scipy import signal
 
@@ -11,6 +12,7 @@ def grad(U):
     vec = np.zeros(2, dtype=np.float)
     for k in range (1, N + 1):
         for l in range (1, M + 1):
+            
             grad[k - 1][l - 1] = [0., 0.]
             if (k == N):
                 vec[0] = 0.
@@ -22,7 +24,9 @@ def grad(U):
                 vec[1] = float(U[k - 1, l + 1 - 1]) - float(U[k - 1, l - 1])
             grad[k - 1, l - 1][0] = float(vec[0])
             grad[k - 1, l - 1][1] = float(vec[1])
-            print('grad = ', grad)
+            #if k > 458 :
+            #    print("grad k l = ",k,l,grad[k-1][l-1])
+    print(grad)
     return (grad)
 
 def div_operator(P):
@@ -72,8 +76,9 @@ def create_f_matrix(pic, sigma):
     K = kernel_gaussian(sigma, 5)
     F = signal.convolve2d(pic, K, 'full', 'symm')
     grad_of_F = grad(F)
-    f_matrix = np.empty(grad_of_F.shape, dtype='int64')
+    f_matrix = np.empty(grad_of_F.shape, dtype=object)
     n, m = grad_of_F.shape
+    print(n,m)
     for i in range(n):
         for j in range(m):
             f_matrix[i][j] = np.exp(-(np.linalg.norm(grad_of_F[i][j]))**2)
@@ -88,14 +93,18 @@ def plot_f(name_image, sigma):
     #print(f_matrix[1])
     #print(f_matrix[2])
     #print(f_matrix)
-    #X=[]
-    #Y=[]
-    #Z=[]
-    #for i in range
+    X=[]
+    Y=[]
+    for i in range(len(f_matrix)):
+        for j in range(len(f_matrix[0])):
+            X.append(i)
+            Y.append(f_matrix[i][j])
+    plt.plot(X,Y)
+    plt.show()
+
 
 def filter_perona(name_image, N, step, sigma):
     im = Image.open(name_image)
-    print(im)
     pic = np.array(im, dtype='int64')
     f_matrix = create_f_matrix(pic, sigma)
     grad_pic = grad(pic)
