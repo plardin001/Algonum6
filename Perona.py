@@ -1,11 +1,7 @@
 import numpy as np
+import math as m
 import method as met
 from PIL import Image
-
-A = np.eye(2)
-print(A)
-A[1][1] = 12
-A[0][1] = 42
 
 #######MATHEMATIC OPERATORS##########
 def grad(U):
@@ -49,16 +45,26 @@ def div_operator(P):
 def laplace_operator(U):
     return (div_operator(grad(U)))
 
+
 #########################FILTERS####################
 
 def filter_euler(name_image, N, step):
     laplace_function = lambda U, t: laplace_operator(U)
     im = Image.open(name_image)
-    pic = np.array(im)
-    print(pic)
-    
-    solution_picture = met.meth_n_step(pic, 0, N, step, laplace_function, met.step_euler)
-    return (1)
+    pic = np.array(im, dtype='int64')
+    solution_picture = met.meth_n_step(pic, 0, N, step, laplace_function, met.step_euler)[-1]
+    solution_im = Image.fromarray(solution_picture)
+    solution_im.show()
+    solution_im.convert('RGB').save("filter_euler.png")
+    return (solution_picture)
 
-print(laplace_operator(A))
-filter_euler("picture.png", 10, 0.1)
+def kernel_gaussian(sigma, size):
+    K = np.zeros((size, size))
+    gauss = lambda x, y: (1./(m.sqrt(2*m.pi*(sigma**2)))*m.exp(-(1./(2*(sigma**2))* ((x - size/2)** 2) + (y - size/2)**2))
+    print (K)
+    return (K)
+
+
+####################TESTS###########
+#print(filter_euler("picture.png", 10, 0.1))
+print(kernel_gaussian(1.4, 3))

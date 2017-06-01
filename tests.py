@@ -27,7 +27,7 @@ def test_meth_n_step():
     eps = 0.0001
 
 
-    h=0.001
+    h=0.1
     N = (tf - t0) // h
     N = int(N)
 
@@ -116,12 +116,12 @@ def test_meth_epsilon2():
     return
 
 def test_print_field():
-    print_field(f2,np.array([0,1]),0,"Tangentes à f2",step_euler)
+    print_field(f1,[1],0,"Tangentes à f1",step_euler)
 
 
-#test_meth_n_step() 
-#test_meth_epsilon()
+test_meth_n_step() 
+test_meth_epsilon()
 test_meth_epsilon2()
 
-#test_print_field()
+test_print_field()
 

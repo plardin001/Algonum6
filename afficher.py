@@ -4,7 +4,7 @@ from method import *
 
 #print a vector field for the cauchy problem : y'(t)= f(y(t),t) ( f : R2 -> R) )
 #with y(t0) = y0 as a initial condition
-def hs_print_field(f, y0, t0, field_name,method, h=0.01, xmin=0, xmax=10, ymin=0, ymax=10):
+def print_field(f, y0, t0, field_name,method, h=0.01, xmin=0, xmax=10, ymin=0, ymax=10):
     X = np.arange(xmin, xmax, h)
     Y = np.arange(ymin, ymax, h) #maillage
     N = len(X)
@@ -13,7 +13,6 @@ def hs_print_field(f, y0, t0, field_name,method, h=0.01, xmin=0, xmax=10, ymin=0
     plt.axis('equal')#repere othonorme
     plt.xlim(xmin, xmax)
     plt.ylim(ymin, ymax)
-    #plt.figure()
 
     F = meth_n_step(y0, t0, N, h, f, method) #calcul de la fonction
     t = t0
