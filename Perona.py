@@ -6,6 +6,8 @@ from PIL import Image
 from scipy import signal
 
 #######MATHEMATIC OPERATORS##########
+
+#Computes the gradient of U
 def grad(U):
     N, M = U.shape
     grad = np.empty((N, M), dtype=object)
@@ -29,6 +31,7 @@ def grad(U):
     print(grad)
     return (grad)
 
+#Computes div(P)
 def div_operator(P):
     N, M = P.shape
     div = np.empty((N, M))
@@ -54,6 +57,7 @@ def laplace_operator(U):
 
 #########################FILTERS####################
 
+#Generates a new image according the Cauchy problem of Perona and Malik
 def filter_euler(name_image, N, step):
     laplace_function = lambda U, t: laplace_operator(U)
     im = Image.open(name_image)
@@ -64,6 +68,7 @@ def filter_euler(name_image, N, step):
     solution_im.convert('RGB').save("filter_euler.png")
     return (solution_picture)
 
+#Generates a kernel gaussian 
 def kernel_gaussian(sigma, size):
     K = np.zeros((size, size))
     gauss_function = lambda x, y: (1./(m.sqrt(2*m.pi*(sigma**2)))*m.exp(-(1./(2*(sigma**2))* ((x - size//2)** 2) + (y - size//2)**2)))
@@ -72,6 +77,7 @@ def kernel_gaussian(sigma, size):
             K[x][y] = gauss_function(x, y)
     return (K)
 
+#Computes the fonction f
 def create_f_matrix(pic, sigma):
     K = kernel_gaussian(sigma, 5)
     F = signal.convolve2d(pic, K, 'full', 'symm')
@@ -106,7 +112,7 @@ def plot_f(name_image, sigma):
     plt.show()
 """
 
-
+#Generates a new image according the Cauchy problem of Perona and Malik
 def filter_perona(name_image, N, step, sigma):
     im = Image.open(name_image)
     pic = np.array(im, dtype='int64')
@@ -128,11 +134,25 @@ def filter_perona(name_image, N, step, sigma):
 
 
 ####################TESTS###########
-##print(filter_euler("picture.png", 10, 0.1))
-#im = Image.open("picture.png")
-#pic = np.array(im, dtype='int64')
-##print(create_f_matrix(pic, 1.4))
-plot_f("picture.png",1.2)
-#print(kernel_gaussian(1.4, 5))
-#print(filter_perona("picture.png", 100, 0.2, 1.2))
+def test_filter_euler():
+    print(filter_euler("picture.png", 10, 0.1))
+
+def test_create_f():
+    im = Image.open("picture.png")
+    pic = np.array(im, dtype='int64')
+    print(create_f_matrix(pic, 1.4))
+
+def test_kernel():
+    print(kernel_gaussian(1.4, 5))
+
+def test_filter_perona():
+    print(filter_perona("picture.png", 200, 0.2, 1.2))
+
+if __name__ == '__main__':
+    #test_filter_euler()
+    #test_create_f()
+    #test_kernel()
+    test_filter_perona()
+
+#plot_f("picture.png",1.2)
 
