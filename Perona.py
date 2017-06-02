@@ -28,7 +28,7 @@ def grad(U):
             grad[k - 1, l - 1][1] = float(vec[1])
             #if k > 458 :
             #    print("grad k l = ",k,l,grad[k-1][l-1])
-    print(grad)
+    #print(grad)
     return (grad)
 
 #Computes div(P)
@@ -84,7 +84,7 @@ def create_f_matrix(pic, sigma):
     grad_of_F = grad(F)
     f_matrix = np.empty(grad_of_F.shape, dtype=object)
     n, m = grad_of_F.shape
-    print(n,m)
+    #print(n,m)
     for i in range(n):
         for j in range(m):
             f_matrix[i][j] = np.exp(-(np.linalg.norm(grad_of_F[i][j]))**2)
@@ -94,7 +94,7 @@ def plot_f(name_image, sigma):
     im = Image.open(name_image)
     pic = np.array(im, dtype='int64')
     f_matrix = create_f_matrix(pic, sigma)
-    print(f_matrix)
+    #print(f_matrix)
     solution_im = Image.fromarray(f_matrix)
     solution_im.show()
     #print(f_matrix[300][300])
@@ -125,7 +125,7 @@ def filter_perona(name_image, N, step, sigma):
                 for k in range(2):
                     matrix_in_div[i][j][k] = f_matrix[i][j]*grad_pic[i][j][k]
     perona_filter_function = lambda U, t: div_operator(matrix_in_div)
-    print(matrix_in_div)
+    #print(matrix_in_div)
     solution_picture = met.meth_n_stepx(pic, 0, N, step, perona_filter_function, met.step_euler)[-1]
     solution_im = Image.fromarray(solution_picture)
     solution_im.show()
@@ -146,12 +146,12 @@ def test_kernel():
     print(kernel_gaussian(1.4, 5))
 
 def test_filter_perona():
-    print(filter_perona("picture.png", 200, 0.2, 1.2))
+    print(filter_perona("picture.png", 200, 0.2, 1.5))
 
 if __name__ == '__main__':
-    #test_filter_euler()
-    #test_create_f()
-    #test_kernel()
+    test_filter_euler()
+    test_create_f()
+    test_kernel()
     test_filter_perona()
 
 #plot_f("picture.png",1.2)
